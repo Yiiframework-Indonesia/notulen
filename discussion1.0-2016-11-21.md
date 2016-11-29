@@ -102,4 +102,4 @@ Idealnya, untuk unit-test ditulis oleh author class tersebut. Sedangkan untuk fu
 
 (Yii Addict Indonesia)
 
-[Kembali ke Index](readme.md)
+[Kembali ke Index](README.md)
