@@ -75,3 +75,5 @@ Jawab : Bisa menggunakan rate-limiting, yaitu dimana menggunakan metode membatas
 Jawab :  Yii2 sudah support URL caching.. biasanya ini diimplentasikan untuk actionIndex saja,  aplikasi akan memberitahu client (browser untuk mengcache response melalui HTTP response header). 
 
 (Yii Addict Indonesia)
+
+[Kembali ke Index](README.md)
