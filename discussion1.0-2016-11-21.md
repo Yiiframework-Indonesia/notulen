@@ -101,3 +101,5 @@ Jawab:
 Idealnya, untuk unit-test ditulis oleh author class tersebut. Sedangkan untuk functional dan acceptance, bisa ditulis oleh yang lain, misalnya QA / Testing Engineer. 
 
 (Yii Addict Indonesia)
+
+[Kembali ke Index](readme.md)
