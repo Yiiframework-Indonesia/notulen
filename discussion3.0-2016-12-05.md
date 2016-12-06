@@ -61,7 +61,7 @@ Mungkin sekian pembukaannya. Kalau tambah bingung, silakan saling bertanya satu 
 ## FAQ
 Beberapa pertanyaan dan jawaban
 - Tanya: Sebelumnya maaf buat para master, dari awal saya kurang suka dengan konsep RBAC, saya merasa konsep ini terlalu teknis sampai hak akses berdasarkan nama action, Saya rasa kurang cocok kalau digunakan langsung oleh user, untuk aplikasi yang beberapa form mungkin tidak terlalu masalah, tetapi kalau sudah ratusan form, tentunya bisa sedikit merepotkan. Awalnya saya mengembangkan akses user berdasarkan main form (yang terdapat CRUD) seperti contoh aplikasi yang sudah pernah saya share yang masih menggunakan yii1. Kemudian ternyata untuk aplikasi yang cukup besar cara ini cukup merepotkan, akhirnya saya buat hak akses berdasarkan unit. Pertimbangannya setiap unit memiliki balasan main form dan ada puluhan unit, kalau di gunakan tiap main form bisa ratusan pilihan hak akses, apalagi kalau tiap action,
-Jawab: bisa pakai yii2-adminnya om munir, sudah sangat bersahabat. Ga pake nama action kan juga bisa, RBACnya yii2 ini sangat solid. Kyakny ini hanya masalah preferensi, imo justru berbasis action itu lbh baik karena bisa kasi outorisasi lbh detail. Lagian kan bisa pake all action dg *
+Jawab: bisa pakai yii2-adminnya om munir, sudah sangat bersahabat. Ga pake nama action kan juga bisa, RBACnya yii2 ini sangat solid. Kyakny ini hanya masalah preferensi, imo justru berbasis action itu lbh baik karena bisa kasi outorisasi lbh detail. Lagian kan bisa pake all action dg "*"
 
 - Tanya: Bagaimana implementasinya user bisa akses multi departemen ditiap2 departemen tersebut user memiliki group akses tersendiri , dimana ditiap group ini diatur akses tiap modulnya apakah read , update, create atau delete. Tambahan lg user bisa multi lokasi?
 Jawab: Konsep RBAC emang berjenjang seperti itu. hanyasaja RBAC hanya mengatur sampe level routing bukan tabel..Pembedaan departemen pasti ada di tabel..
@@ -69,9 +69,10 @@ Di Yii ada yg namanya permission dan role. Anggap saja departemen itu role grup 
 
 - Tanya : Seorang manager adalah juga karyawan, Apakah usernya dibedakan, jadi ada 2 user untuk karyawan dan manager, Sehingga kalau manager itu ingin cuti dia harus login pakai account user karyawan 
 Jawab: tidak perlu dibedakan, tapi di assign 2 role, sebagai karyawan dan sebagai manager
+
 Tanya2: Apakah tidak saling bertentangan jika di assign 2 role, soalnya satu role hanya boleh create dan tidak boleh approve sedangkan yang satunya boleh approve?
-Jawab2: pada saat approve, role user nya gak memenuhi syarat, tapi role managernya memenuhi syarat, apa yang salah? begini kita harus melihatnya
-"role cuti bukan melarang aprove cuti. hanya tidak memberi hak aprove cuti" jadi kalau user itu diassign dengan role lain, maka haknya yg lain pun akan didapat
+Jawab2: pada saat approve, role user nya gak memenuhi syarat, tapi role managernya memenuhi syarat, apa yang salah? begini kita harus melihatnya "role cuti bukan melarang aprove cuti. hanya tidak memberi hak aprove cuti" jadi kalau user itu diassign dengan role lain, maka haknya yg lain pun akan didapat
+
 Tanya3: Jadi otomatis punya hak approve ya jika user biasa diberi role approve cuti, misalnya si manager lagi dinas luar atau berhalangan masuk jadi approval si manager bisa diberikan sementara ke user penggantinya?
 Jawab3: iya seperti itu... tapi biasanya ada tambahan lain yang melekat dari ROLE, yaitu RULE. Contoh RULE misalnya, seorang manager hanya boleh meng-aprove cuti dari bawahannya. jadi tidak semua manager boleh mengaprove semua cuti. imho, lebih ke arah kebutuhan proses bisnis saja. yg jelas jika role karyawan & manager dipisah atau digabung bisa diterapkan dgn menggunakan RBAC. 
 
@@ -86,6 +87,7 @@ Jawab: can() ini kan sebuah method yg berfungsi untuk cek apakah si user punya p
 
 - Tanya: Oh ya om fredy ini kalau gak salah kemarin, yg bilang bikin rbac/permission control itu diletakan dimodel dimana disitu juga ada/dapat mendifinisikan create button, sehingga dinamapun tidak terjadi keselip sebuah kondisi yg seharusnya tidak ada menjadi ada, kemarin secara langsung ane mencoba menerapkan itu sampe membuat abstract class juga yg mengextends active record, tapi ketika sampe ditengan,,, ini yg ane batesin model apa controller sih?
 Jawab: Yg dibatesin controller action & link/button nya saja
+
 Tanya2: Bagaimana kita membatasi sebuah controller dari model?
 Jawab2: bisa saja seperti ini:
 ```php
@@ -104,7 +106,9 @@ Jawab3: betul. karena niatnya wrapper Logic Filter bukan RBAC. Karena filter log
 Jawab: tidak harus.
 
 - Tanya: kenapa query ini muncul banyak banget, kayaknya  hampir/bahkan semua yang memanggil User::can() query ini di eksekusi ? 
-```SELECT * FROM `tbl_auth_item` WHERE `name`='admin'```
+```php
+SELECT * FROM `tbl_auth_item` WHERE `name`='admin'
+```
 kalau ada 30 User::can() mungkin query itu akan muncul di log sekitar 30 kali juga,, dan sebagai info name=admin disitu bertindak sebagai "role" atau dalam tabel auth_item ber type = 1
 #menyambung tadi, adakah cara untuk meminimalis query tersebut, seperti apa yang dilakukan om Mdm untuk bagian "rule" 
 https://github.com/mdmsoft/yii2-admin/blob/master/components/DbManager.php
@@ -137,20 +141,27 @@ Jawab2: Iya
 
 - Tanya: Seorang guru bisa mengakses halaman daftar murid yg dia ajar siapa aja dimana di halaman ini ada filter tahun ajaran, level kelas, dan ruang kelas.dimana filter nya berupa dropdown dan data nya diambil via ajax. Jd selain guru punya hak akses ke halaman tsb dia jg punya hak akses utk list level kelas dan ruangan kelas yg bersifat read only?
 Jawab: Kayaknya itu gak dilevel rbac.. Tapi di level konten.. kalau saya ditaroh di loadModel ngecek current user id dan cek groupnya di db.. Kalau groupnya dikasi maka pass kalau gak dikasi maka error 404. Bisa juga buat Helper/komponem yang return true dan false.
+
 Tanya2: Coba saya detailkan lagi. Guru akses halaman 'guru/default/index' utk halaman list anak2 yg dia ajarkan. Di halaman ini ada filter level kelas misalnya kelas 1, 2, dsb. Kemudian ada filter ruangan kelas misal kelas 1A, 1B dsb. Dimana filter level kelas akan ambil data secara ajax di halaman 'master/levelkelas/list' dan filter ruangan kelas ambil data di halaman 'master/ruangkelas/list'. Berarti kita harus assign hak akses ke guru 'guru/default/index', 'master/levelkelas/list' dan 'master/ruangkelas/list'. Kalau di halaman rbac kita harus centang ketiga item tsb. Nah ada yg punya pengalaman seperti ini?
 Jawab2: Paling enak bikin tabel matrixnya.. User vs fitur Matrix akan membantu merancang strategi rbac-nya. Sy tipe programmer yang merancang fitur per controller... Jadi satu group user mendapat seluruh fitur action dalam satu controller, Itu utk menjawab pertanyaan yang bilang gimana kalau action sy banyak...
 Kalau ada group user yang punya hak akses berbeda terhadap fitur yang sama, sy lebih baik bikin controller baru
+
 Tanya3‬: Nah seting rbac nya gmn?
 Jawab3: Misalnya fitur data karyawan.. bisnis unit bisa CRUD tapi kantor pusat hanya REad Only . Mendingan saya bikin controller baru dan assign rbac khusus holding.. dan remove semua action yg tdk dibutuhkan.
+
 Tanya4: Kalau fitur lain butuh data yg sama apakah di buat controller baru lg?
 Jawab4: Jadi sy gak bikin satu controller yang bisa dipake sama unit dan holding.. ribet ntar setting rbacnya... Sy mesti check hingga ke level action.. mana yang boleh mana yg tidak. 
-Tanya5: gak pakai prinsip DRY ya om peter? *dont repeat yourself
+
+Tanya5: gak pakai prinsip DRY ya om peter? dont repeat yourself
 Jawab5: Keliatannya dry tapi efisien di view karena sy gak perlu checkAccess. Ketika holding punya kebutuhan khusus sy gak usah pusing inget2 mana yang punya holding mana yang punya unit. Tapi tehnik ini tidak terjadi di semua fitur.. Untuk fitur Forum yang saya anggap lebih simple.. di level view ada checkaccess utk ngecek ini postingan siapa, boleh atau readonly
+
 Tanya6: Berarti kalau ada 5 fitur yg butuh data yg sama, maka ada 5 controller yg akan menghasilkan data yg sama ya?
 Jawab6: Iyah.. tapi saat ini saya paling banyak dua..  Karena satu fitur actionnya banyakk...  Kalau cuman akses tabel master rasanya actionnyanya gak banyak..
 Bisa aja lsg disetting dari rbac, Liat kepentingan praktisnya, Rbac punya kemampuan hirarki.. Operation bisa di group, task bisa di grouptask, role juga..
+
 Tanya7: Principal, guru, bagian akademi, bagian psikiater, bagian acs (semacam tata usaha) punya fitur sendiri2 dan kadang ambil data yg sama. Misalnya list ruangan kelas
 Jawab7: Tasknya harus didefinisi satu per satu tapi bisa dikelompokkan jadi satu task..
+
 Tanya8: Nah itu maksudnya cara praktis admin cukup assign 1 rbac utamanya, rbac turunan nya otomatis ke assign 🙈😂😂
 Jawab8: Bisa dunk, Role bisa punya member role lain..
 
@@ -182,8 +193,8 @@ Jawab: Cache merupakan optimalisasi..kalo udah ada cache duluan berarti melakuka
 Tangapan: ini juga contoh salah paham rbac. banyak yg saling tertukar pengertian antara RBAC dan yii2-admin. Fitur itu ada di yii2-admin dan bukan di RBAC
 
 ## Testimoni & Opinion
-- Klo saya pernah pakai SRBAC. Karna agak kurang puas jadinya bikin auth sendiri yg mengatur level control hingga action. Syntax nya tetep paka accessRules. Tp rules dan role di atur pke database sendiri. #yii1
-- Trus dr perfomance pengambilan query bagusan bikinan sendiri dibanding SRBAC. Karna pk AR dan struktur table nya ga ada relation kali ya. Aq bikin pk DAO / Query builder. Biar cepet. #yii1
+- Klo saya pernah pakai SRBAC. Karna agak kurang puas jadinya bikin auth sendiri yg mengatur level control hingga action. Syntax nya tetep paka accessRules. Tp rules dan role di atur pke database sendiri. yii1
+- Trus dr perfomance pengambilan query bagusan bikinan sendiri dibanding SRBAC. Karna pk AR dan struktur table nya ga ada relation kali ya. Aq bikin pk DAO / Query builder. Biar cepet. yii1
 - Kalo dulu di yii1 ane bikin mekanismenya buat class components extend CFilter, trus check di function preFilter. Lalu di setiap file controller lampirin satu baris kode buat panggil class component tadi. Selama ini sih jalan, cuma gak tau efektif menurut kawan2 atau gak?
 - Basicnya sy cuma pake RBAC buat pembatasan akses controller/*, jadi yg bisa masuk cm authenticated user. 😁 Selebihnya fitur2 yg lain blm dicoba.
 - Mending bikin alternatif pengaturan hak akses sendiri, yaitu hanya kode logic biasa yg dikumpulin ke suatu class. satu model independent dibuat satu class.
