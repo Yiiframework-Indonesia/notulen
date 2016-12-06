@@ -60,16 +60,17 @@ Mungkin sekian pembukaannya. Kalau tambah bingung, silakan saling bertanya satu 
 
 ## FAQ
 Beberapa pertanyaan dan jawaban
-- Tanya Jawab 1
+
+- **Tanya Jawab 1**
   - Tanya: Sebelumnya maaf buat para master, dari awal saya kurang suka dengan konsep RBAC, saya merasa konsep ini terlalu teknis sampai hak akses berdasarkan nama action, Saya rasa kurang cocok kalau digunakan langsung oleh user, untuk aplikasi yang beberapa form mungkin tidak terlalu masalah, tetapi kalau sudah ratusan form, tentunya bisa sedikit merepotkan. Awalnya saya mengembangkan akses user berdasarkan main form (yang terdapat CRUD) seperti contoh aplikasi yang sudah pernah saya share yang masih menggunakan yii1. Kemudian ternyata untuk aplikasi yang cukup besar cara ini cukup merepotkan, akhirnya saya buat hak akses berdasarkan unit. Pertimbangannya setiap unit memiliki balasan main form dan ada puluhan unit, kalau di gunakan tiap main form bisa ratusan pilihan hak akses, apalagi kalau tiap action,
   - Jawab: bisa pakai yii2-adminnya om munir, sudah sangat bersahabat. Ga pake nama action kan juga bisa, RBACnya yii2 ini sangat solid. Kyakny ini hanya masalah preferensi, imo justru berbasis action itu lbh baik karena bisa kasi outorisasi lbh detail. Lagian kan bisa pake all action dg "*"
 
-- Tanya Jawab 2
+- **Tanya Jawab 2**
   - Tanya: Bagaimana implementasinya user bisa akses multi departemen ditiap2 departemen tersebut user memiliki group akses tersendiri , dimana ditiap group ini diatur akses tiap modulnya apakah read , update, create atau delete. Tambahan lg user bisa multi lokasi?
   - Jawab: Konsep RBAC emang berjenjang seperti itu. hanyasaja RBAC hanya mengatur sampe level routing bukan tabel..Pembedaan departemen pasti ada di tabel..
 Di Yii ada yg namanya permission dan role. Anggap saja departemen itu role grup access itu permission. Role (HR), Permission (admin karyawan),  Sub permission(create update delete add) Nanti di Yii diset role HR punya permission admin karyawan, Dan admin karyawan diset punya permission crud, Dan user assign role HR
 
-- Tanya Jawab 3
+- **Tanya Jawab 3**
   - Tanya : Seorang manager adalah juga karyawan, Apakah usernya dibedakan, jadi ada 2 user untuk karyawan dan manager, Sehingga kalau manager itu ingin cuti dia harus login pakai account user karyawan 
   - Jawab: tidak perlu dibedakan, tapi di assign 2 role, sebagai karyawan dan sebagai manager
 
@@ -79,15 +80,15 @@ Di Yii ada yg namanya permission dan role. Anggap saja departemen itu role grup 
   - Tanya: Jadi otomatis punya hak approve ya jika user biasa diberi role approve cuti, misalnya si manager lagi dinas luar atau berhalangan masuk jadi approval si manager bisa diberikan sementara ke user penggantinya?
   - Jawab: iya seperti itu... tapi biasanya ada tambahan lain yang melekat dari ROLE, yaitu RULE. Contoh RULE misalnya, seorang manager hanya boleh meng-aprove cuti dari bawahannya. jadi tidak semua manager boleh mengaprove semua cuti. imho, lebih ke arah kebutuhan proses bisnis saja. yg jelas jika role karyawan & manager dipisah atau digabung bisa diterapkan dgn menggunakan RBAC. 
 
-- Tanya Jawab 4
+- **Tanya Jawab 4**
   - Tanya: Mohon untuk installasinya bisa diperjelas lagi tertuma konfig php sama tabelnya?  K bykan error rbac class not found blum masuk dokumentasi installasi
   - Jawab: Ada di guide penjelasannya, intinya cuma config component rbac. Sama migration (kl pake dbrbac) dan by default  Yii ga ada gui rbac nya. Cuma ada abstrak nya, Tp ttp masih bisa dipake.
 
-- Tanya Jawab 5
+- **Tanya Jawab 5**
   - Tanya: Kenapa rbac bisa diakses dengan can()?
   - Jawab: can() ini kan sebuah method yg berfungsi untuk cek apakah si user punya permission nya atau tidak.
 
-- Tanya Jawab 6
+- **Tanya Jawab 6**
   - Tanya: Oh ya om fredy ini kalau gak salah kemarin, yg bilang bikin rbac/permission control itu diletakan dimodel dimana disitu juga ada/dapat mendifinisikan create button, sehingga dinamapun tidak terjadi keselip sebuah kondisi yg seharusnya tidak ada menjadi ada, kemarin secara langsung ane mencoba menerapkan itu sampe membuat abstract class juga yg mengextends active record, tapi ketika sampe ditengan, ini yg ane batesin model apa controller sih?
   - Jawab: Yg dibatesin controller action & link/button nya saja
 
@@ -105,11 +106,11 @@ if($model->checkAccess('update')==false){
   - Tanya: sangat manual sekali.. :) gak kebayang begitu kompleknya kode di controller, repot sekali ya?
   - Jawab: betul. karena niatnya wrapper Logic Filter bukan RBAC. Karena filter logic sendiri udah agak repot. jadi klo mau nerapin RBAC agak kewalahan. 
 
-- Tanya Jawab 7
+- **Tanya Jawab 7**
   - Tanya: Sy dulu pk SRBAC yii-1, tiap action harus unik. Nah utk RBAC di yii-admin / mimin gitu juga ga ya? Terakhir sy pakai Action harus unik. Ga tau klo ada versi terbaru. Jd misal dikasih akses actionCreate di controller A. Nah dia bisa akses actionCreate di controller lain. Kecuali klo namanya di ubah.
   - Jawab: tidak harus.
 
-- Tanya Jawab 8
+- **Tanya Jawab 8**
   - Tanya: kenapa query ini muncul banyak banget, kayaknya  hampir/bahkan semua yang memanggil User::can() query ini di eksekusi ? 
 ```php
 SELECT * FROM `tbl_auth_item` WHERE `name`='admin'
@@ -118,7 +119,7 @@ kalau ada 30 User::can() mungkin query itu akan muncul di log sekitar 30 kali ju
 https://github.com/mdmsoft/yii2-admin/blob/master/components/DbManager.php
   - Jawab: Nah. Ini alasan sy ga pakai SRBAC. Bahkan query exev time bisa lbh besar dr 1000ms utk ratusan user role. 🙊😬 (agak OOT). Pake cache untuk mengatasi performa RBAC.
 
-- Tanya Jawab 9
+- **Tanya Jawab 9**
   - Tanya: jadi bingung...  kalau yang seperti ini dinamakan apa ya?
 ```php
 'access' => [
@@ -142,10 +143,11 @@ https://github.com/mdmsoft/yii2-admin/blob/master/components/DbManager.php
 ```
   - Jawab: ACL (Access Control List), 
 
-- Tanya Jawab 10
+- **Tanya Jawab 10**
   + Tanya: berarti RBAC itu rule nya sudah di deskripsikan terlebih dahulu baik di database atau di sebuah file ya om?
   - Jawab: Iya
-- Tanya Jawab 11
+  
+- **Tanya Jawab 11**
   + Tanya: Seorang guru bisa mengakses halaman daftar murid yg dia ajar siapa aja dimana di halaman ini ada filter tahun ajaran, level kelas, dan ruang kelas.dimana filter nya berupa dropdown dan data nya diambil via ajax. Jd selain guru punya hak akses ke halaman tsb dia jg punya hak akses utk list level kelas dan ruangan kelas yg bersifat read only?
   - Jawab: Kayaknya itu gak dilevel rbac.. Tapi di level konten.. kalau saya ditaroh di loadModel ngecek current user id dan cek groupnya di db.. Kalau groupnya dikasi maka pass kalau gak dikasi maka error 404. Bisa juga buat Helper/komponem yang return true dan false.
 
@@ -153,24 +155,24 @@ https://github.com/mdmsoft/yii2-admin/blob/master/components/DbManager.php
   - Jawab: Paling enak bikin tabel matrixnya.. User vs fitur Matrix akan membantu merancang strategi rbac-nya. Sy tipe programmer yang merancang fitur per controller... Jadi satu group user mendapat seluruh fitur action dalam satu controller, Itu utk menjawab pertanyaan yang bilang gimana kalau action sy banyak...
 Kalau ada group user yang punya hak akses berbeda terhadap fitur yang sama, sy lebih baik bikin controller baru
 
-Tanya3‬: Nah seting rbac nya gmn?
-Jawab3: Misalnya fitur data karyawan.. bisnis unit bisa CRUD tapi kantor pusat hanya REad Only . Mendingan saya bikin controller baru dan assign rbac khusus holding.. dan remove semua action yg tdk dibutuhkan.
+  - Tanya‬: Nah seting rbac nya gmn?
+  - Jawab: Misalnya fitur data karyawan.. bisnis unit bisa CRUD tapi kantor pusat hanya REad Only . Mendingan saya bikin controller baru dan assign rbac khusus holding.. dan remove semua action yg tdk dibutuhkan.
 
-Tanya4: Kalau fitur lain butuh data yg sama apakah di buat controller baru lg?
-Jawab4: Jadi sy gak bikin satu controller yang bisa dipake sama unit dan holding.. ribet ntar setting rbacnya... Sy mesti check hingga ke level action.. mana yang boleh mana yg tidak. 
+  - Tanya: Kalau fitur lain butuh data yg sama apakah di buat controller baru lg?
+  - Jawab: Jadi sy gak bikin satu controller yang bisa dipake sama unit dan holding.. ribet ntar setting rbacnya... Sy mesti check hingga ke level action.. mana yang boleh mana yg tidak. 
 
-Tanya5: gak pakai prinsip DRY ya om peter? dont repeat yourself
-Jawab5: Keliatannya dry tapi efisien di view karena sy gak perlu checkAccess. Ketika holding punya kebutuhan khusus sy gak usah pusing inget2 mana yang punya holding mana yang punya unit. Tapi tehnik ini tidak terjadi di semua fitur.. Untuk fitur Forum yang saya anggap lebih simple.. di level view ada checkaccess utk ngecek ini postingan siapa, boleh atau readonly
+  - Tanya: gak pakai prinsip DRY ya om peter? dont repeat yourself
+  - Jawab: Keliatannya dry tapi efisien di view karena sy gak perlu checkAccess. Ketika holding punya kebutuhan khusus sy gak usah pusing inget2 mana yang punya holding mana yang punya unit. Tapi tehnik ini tidak terjadi di semua fitur.. Untuk fitur Forum yang saya anggap lebih simple.. di level view ada checkaccess utk ngecek ini postingan siapa, boleh atau readonly
 
-Tanya6: Berarti kalau ada 5 fitur yg butuh data yg sama, maka ada 5 controller yg akan menghasilkan data yg sama ya?
-Jawab6: Iyah.. tapi saat ini saya paling banyak dua..  Karena satu fitur actionnya banyakk...  Kalau cuman akses tabel master rasanya actionnyanya gak banyak..
+  - Tanya: Berarti kalau ada 5 fitur yg butuh data yg sama, maka ada 5 controller yg akan menghasilkan data yg sama ya?
+  - Jawab: Iyah.. tapi saat ini saya paling banyak dua..  Karena satu fitur actionnya banyakk...  Kalau cuman akses tabel master rasanya actionnyanya gak banyak..
 Bisa aja lsg disetting dari rbac, Liat kepentingan praktisnya, Rbac punya kemampuan hirarki.. Operation bisa di group, task bisa di grouptask, role juga..
 
-Tanya7: Principal, guru, bagian akademi, bagian psikiater, bagian acs (semacam tata usaha) punya fitur sendiri2 dan kadang ambil data yg sama. Misalnya list ruangan kelas
-Jawab7: Tasknya harus didefinisi satu per satu tapi bisa dikelompokkan jadi satu task..
+  - Tanya: Principal, guru, bagian akademi, bagian psikiater, bagian acs (semacam tata usaha) punya fitur sendiri2 dan kadang ambil data yg sama. Misalnya list ruangan kelas
+  - Jawab: Tasknya harus didefinisi satu per satu tapi bisa dikelompokkan jadi satu task..
 
-Tanya8: Nah itu maksudnya cara praktis admin cukup assign 1 rbac utamanya, rbac turunan nya otomatis ke assign 🙈😂😂
-Jawab8: Bisa dunk, Role bisa punya member role lain..
+  - Tanya: Nah itu maksudnya cara praktis admin cukup assign 1 rbac utamanya, rbac turunan nya otomatis ke assign 🙈😂😂
+  - Jawab: Bisa dunk, Role bisa punya member role lain..
 
 - **Tanya Jawab 12**
   * Tanya: klo kita desain user yg dibayangan kita user ini nanti akan terdiri dari bbrpa kategori user, apakah kategori2 user tsb cukup dibuat dlm bentuk role aja atau lebih baik kita punya table kategori_user utk menyimpan data kategori usernya. kategori user ini tujuannya nantinya utk membedakan tampilan dashboard dr msg2 kategori user. mohon pencerahannya
