@@ -19,7 +19,7 @@ Tadi disebutkan bahwa RBAC adalah salah satu cara dari pengaturan otorisasi. Ini
 ### RBAC
 Lalu apa itu RBAC? Kata kuncinya adalah ROLE, Yaitu group/kumpulan dari tugas-tugas tertentu. Artinya, boleh tidaknya seorang user mengakses suatu resource ditentukan oleh punya atau tidaknya user tersebut pada role. Pada prakteknya, role ini dapat memiliki role-role lain sebagai anggotanya. Istilah lain yang berkaitan adalah PERMISSION. Sama seperti role yaitu kumpulan dari tugas-tugas. Hanya saja, jika role lebih berkaitan dengan user-nya, permision sedikit lebih berkaitan dengan job-nya.
 
-IMG-20161205-WA0002.jpg
+![](http://i.imgur.com/98aieOt.jpg)
 Berikut ini ilustrasinya
 
 Misal ada beberapa tugas/job yang ingin diatur aksesnya. Yaitu: Create lebur, update lembur, delete lembur, aprove lembur, reject lembur, Create cuti, update cuti, delete cuti, aprove cuti, reject cuti. Maka kita kelompokkan job-job ini pada groupnya
@@ -106,7 +106,7 @@ Jawab: tidak harus.
 - Tanya: kenapa query ini muncul banyak banget, kayaknya  hampir/bahkan semua yang memanggil User::can() query ini di eksekusi ? 
 ```SELECT * FROM `tbl_auth_item` WHERE `name`='admin'```
 kalau ada 30 User::can() mungkin query itu akan muncul di log sekitar 30 kali juga,, dan sebagai info name=admin disitu bertindak sebagai "role" atau dalam tabel auth_item ber type = 1
-#menyambung tadi, adakah cara untuk meminimalis query tersebut, seperti apa yang dilakukan om Mdm untuk begian "rule" 
+#menyambung tadi, adakah cara untuk meminimalis query tersebut, seperti apa yang dilakukan om Mdm untuk bagian "rule" 
 https://github.com/mdmsoft/yii2-admin/blob/master/components/DbManager.php
 Jawab: Nah. Ini alasan sy ga pakai SRBAC. Bahkan query exev time bisa lbh besar dr 1000ms utk ratusan user role. 🙊😬 (agak OOT). Pake cache untuk mengatasi performa RBAC.
 
