@@ -172,40 +172,47 @@ Jawab7: Tasknya harus didefinisi satu per satu tapi bisa dikelompokkan jadi satu
 Tanya8: Nah itu maksudnya cara praktis admin cukup assign 1 rbac utamanya, rbac turunan nya otomatis ke assign 🙈😂😂
 Jawab8: Bisa dunk, Role bisa punya member role lain..
 
-- Tanya: klo kita desain user yg dibayangan kita user ini nanti akan terdiri dari bbrpa kategori user, apakah kategori2 user tsb cukup dibuat dlm bentuk role aja atau lebih baik kita punya table kategori_user utk menyimpan data kategori usernya. kategori user ini tujuannya nantinya utk membedakan tampilan dashboard dr msg2 kategori user. mohon pencerahannya
-Jawab: Itu cukup pake role saja
+- **Tanya Jawab 12**
+  * Tanya: klo kita desain user yg dibayangan kita user ini nanti akan terdiri dari bbrpa kategori user, apakah kategori2 user tsb cukup dibuat dlm bentuk role aja atau lebih baik kita punya table kategori_user utk menyimpan data kategori usernya. kategori user ini tujuannya nantinya utk membedakan tampilan dashboard dr msg2 kategori user. mohon pencerahannya
+  - Jawab: Itu cukup pake role saja
 
-- Tanya: mengapa om peter membuat penamaan controller dengan prefix abjad diawal tiap file?
-Jawab: itu yii1, tujuannya biar File2 yang related berdekatan.. namun di Yii2 udah gak perlu lagi karena ada namespace so bisa digrouping menggunakan folder
+- **Tanya Jawab 13**
+  * Tanya: mengapa om peter membuat penamaan controller dengan prefix abjad diawal tiap file?
+  - Jawab: itu yii1, tujuannya biar File2 yang related berdekatan.. namun di Yii2 udah gak perlu lagi karena ada namespace so bisa digrouping menggunakan folder
 
-- Tanya: Btw dg role yg begitu banyak tentunya performa app akan trasa berat hanya utk ngurusi rbac saja..
+- **Tanya Jawab 14**
+  * Tanya: Btw dg role yg begitu banyak tentunya performa app akan trasa berat hanya utk ngurusi rbac saja..
 Bagaimana kita2 om pet utk mminimalkan hal itu? Saat di yii 1 dan kmudian setelah migrasi ke yii2?
-Jawab: dengan menggunakan cache, itulah opsi saya satu2nya.. sebetulnya ada lagi.. ganti ke db server ke postgres .. dari pengalaman ujicoba dengan query yang ruwet.. postgres lebih cepet keluarnya..
+  - Jawab: dengan menggunakan cache, itulah opsi saya satu2nya.. sebetulnya ada lagi.. ganti ke db server ke postgres .. dari pengalaman ujicoba dengan query yang ruwet.. postgres lebih cepet keluarnya..
 
-- Tanya: Btw mmbuat app yg komplek seperti itu.. bagaimana om pet merancang rbacnya.. khususnya pengaturan rolenya biar ga tumpang tindih?
-Jawab: Minimal ada matrix. salah satunya adalah saya nggak gitu banyak pake Operation/Route .. lebih mudah dikontrol dari controller..
-Tanya2: Gabungan yak.. rbac cuman level controller aja selebihnya ACL?
-Jawab2: fully rbac... ACL hanya saya pake di webservice API-nya.. karena relatif nggak banyak aturan
+- **Tanya Jawab 15**
+  * Tanya: Btw mmbuat app yg komplek seperti itu.. bagaimana om pet merancang rbacnya.. khususnya pengaturan rolenya biar ga tumpang tindih?
+  - Jawab: Minimal ada matrix. salah satunya adalah saya nggak gitu banyak pake Operation/Route .. lebih mudah dikontrol dari controller..
+  * Tanya: Gabungan yak.. rbac cuman level controller aja selebihnya ACL?
+  - Jawab2: fully rbac... ACL hanya saya pake di webservice API-nya.. karena relatif nggak banyak aturan
+  
+- **Tanya Jawab 16**
+  * Tanya: Baik, mnurut temen2 yg pernah pke yii2 admin.. fitur  apa yg perlu ditambah / dikurangi? Ataukah kalian masih mngkustomisasi yii2 admin? Mngapa?
+  - Jawab: kalau saya yii2-admin sudah sangat sesuai kebutuhan... gak ada yang perlu dicustom.. bahkan dibanding yii-right, yii2-admin jauh lebih simple dan lebih lengkap.
 
-- Tanya: Baik, mnurut temen2 yg pernah pke yii2 admin.. fitur  apa yg perlu ditambah / dikurangi? Ataukah kalian masih mngkustomisasi yii2 admin? Mngapa?
-Jawab: 1) kalau saya yii2-admin sudah sangat sesuai kebutuhan... gak ada yang perlu dicustom.. bahkan dibanding yii-right, yii2-admin jauh lebih simple dan lebih lengkap.. 2) ..
+- **Tanya Jawab 17**
+  * Tanya: How to caching rbac data?
+  - Jawab: saya sempat riset, rbac berbasis file ternyata lebih cepat daripada yang berbasis db... ide liar aja sih, yang didb diexport ke file dan rbac baca dari file.. good idea or not? saya sih punya keyakinan kalau ini bakal bikin performance naik 5x lipat..  suka serem saya liat profiling.. tanpa rbac aja, dari yii1-nya aja udah banyak bikin query.. untung yii2 udah nggak gitu..
 
-- Tanya: How to caching rbac data?
-Jawab: saya sempat riset, rbac berbasis file ternyata lebih cepat daripada yang berbasis db... ide liar aja sih, yang didb diexport ke file dan rbac baca dari file.. good idea or not? saya sih punya keyakinan kalau ini bakal bikin performance naik 5x lipat..  suka serem saya liat profiling.. tanpa rbac aja, dari yii1-nya aja udah banyak bikin query.. untung yii2 udah nggak gitu..
+- **Tanya Jawab 18**
+  * Tanya: Apakah temen pnggna yii2 admin.. mnduga bahwa cak munir sebagai foundernya lupa mngimplementasikan cache?
+  - Jawab: Cache merupakan optimalisasi..kalo udah ada cache duluan berarti melakukan premature optimalization CMIIW.. Namun Kalo misalnya efeknya udah jelas, dan effortnya gak susah,, sebenernya gk masalah
 
-- Tanya: Apakah temen pnggna yii2 admin.. mnduga bahwa cak munir sebagai foundernya lupa mngimplementasikan cache?
-Jawab: Cache merupakan optimalisasi..kalo udah ada cache duluan berarti melakukan premature optimalization CMIIW.. Namun Kalo misalnya efeknya udah jelas, dan effortnya gak susah,, sebenernya gk masalah
-
-- Pernyataan: rbac bisa pakai module/controller/*
-Tangapan: ini juga contoh salah paham rbac. banyak yg saling tertukar pengertian antara RBAC dan yii2-admin. Fitur itu ada di yii2-admin dan bukan di RBAC
+- **Tanya Jawab 19**
+  * Pernyataan: rbac bisa pakai module/controller/*
+  - Tangapan: ini juga contoh salah paham rbac. banyak yg saling tertukar pengertian antara RBAC dan yii2-admin. Fitur itu ada di yii2-admin dan bukan di RBAC
 
 ## Testimoni & Opinion
 - Klo saya pernah pakai SRBAC. Karna agak kurang puas jadinya bikin auth sendiri yg mengatur level control hingga action. Syntax nya tetep paka accessRules. Tp rules dan role di atur pke database sendiri. yii1
 - Trus dr perfomance pengambilan query bagusan bikinan sendiri dibanding SRBAC. Karna pk AR dan struktur table nya ga ada relation kali ya. Aq bikin pk DAO / Query builder. Biar cepet. yii1
 - Kalo dulu di yii1 ane bikin mekanismenya buat class components extend CFilter, trus check di function preFilter. Lalu di setiap file controller lampirin satu baris kode buat panggil class component tadi. Selama ini sih jalan, cuma gak tau efektif menurut kawan2 atau gak?
 - Basicnya sy cuma pake RBAC buat pembatasan akses controller/*, jadi yg bisa masuk cm authenticated user. 😁 Selebihnya fitur2 yg lain blm dicoba.
-- Mending bikin alternatif pengaturan hak akses sendiri, yaitu hanya kode logic biasa yg dikumpulin ke suatu class. satu model independent dibuat satu class.
-sekaligus buat generate tombol operasi yg tersedia u/ tiap record.
+- Mending bikin alternatif pengaturan hak akses sendiri, yaitu hanya kode logic biasa yg dikumpulin ke suatu class. satu model independent dibuat satu class. sekaligus buat generate tombol operasi yg tersedia u/ tiap record.
 - Model RBAC lain yang lebih "bersahabat" sepertinya konsep yang digunakan dalam easyiicms. Konsep admin loginnya juga sedikit berbeda.
 - Memahami RBAC paling enak pake study kasus drpd teori..
 - Saya pake yii2 admin tapi saya tambah user group supaya assign user dengan role yg sama lebih mudah
