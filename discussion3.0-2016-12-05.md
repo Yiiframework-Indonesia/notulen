@@ -110,7 +110,7 @@ Jawab: tidak harus.
 SELECT * FROM `tbl_auth_item` WHERE `name`='admin'
 ```
 kalau ada 30 User::can() mungkin query itu akan muncul di log sekitar 30 kali juga,, dan sebagai info name=admin disitu bertindak sebagai "role" atau dalam tabel auth_item ber type = 1
-#menyambung tadi, adakah cara untuk meminimalis query tersebut, seperti apa yang dilakukan om Mdm untuk bagian "rule" 
+#menyambung tadi, adakah cara untuk meminimalis query tersebut, seperti apa yang dilakukan om Mdm untuk bagian rule
 https://github.com/mdmsoft/yii2-admin/blob/master/components/DbManager.php
 Jawab: Nah. Ini alasan sy ga pakai SRBAC. Bahkan query exev time bisa lbh besar dr 1000ms utk ratusan user role. 🙊😬 (agak OOT). Pake cache untuk mengatasi performa RBAC.
 
