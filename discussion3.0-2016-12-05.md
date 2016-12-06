@@ -19,7 +19,7 @@ Tadi disebutkan bahwa RBAC adalah salah satu cara dari pengaturan otorisasi. Ini
 ### RBAC
 Lalu apa itu RBAC? Kata kuncinya adalah ROLE, Yaitu group/kumpulan dari tugas-tugas tertentu. Artinya, boleh tidaknya seorang user mengakses suatu resource ditentukan oleh punya atau tidaknya user tersebut pada role. Pada prakteknya, role ini dapat memiliki role-role lain sebagai anggotanya. Istilah lain yang berkaitan adalah PERMISSION. Sama seperti role yaitu kumpulan dari tugas-tugas. Hanya saja, jika role lebih berkaitan dengan user-nya, permision sedikit lebih berkaitan dengan job-nya.
 
-![](http://i.imgur.com/98aieOt.jpg)
+![ilustrasi rbac](http://i.imgur.com/98aieOt.jpg)
 Berikut ini ilustrasinya
 
 Misal ada beberapa tugas/job yang ingin diatur aksesnya. Yaitu: Create lebur, update lembur, delete lembur, aprove lembur, reject lembur, Create cuti, update cuti, delete cuti, aprove cuti, reject cuti. Maka kita kelompokkan job-job ini pada groupnya
