@@ -1,13 +1,15 @@
-# Diskusi Tentang ActiveRecord
+# Diskusi Tentang Query Menggunakan ActiveRecord
 
 ## Diketahui:
 Model Karyawan(id, nama, email, gender, umur, status_pernikahan, jumlah_anak, status)
 status_pernikahan: jomblo, menikah, duda, janda
+
 ## Ditanya:
 Buatlah query menggunakan activerecord untuk mencari Karyawan yang 
 - jenis kelaminnya cewek
 - masih gadis atau jika janda maka jumlah anaknya harus 0
 - umur dibawah 25 tahun
+
 ## Keterangan: sertakan raw sqlnya
 
 # PEMBAHASAN
@@ -21,7 +23,8 @@ SELECT * FROM `karyawan` WHERE
 ```
     
 ## Jawaban Fredy
-### AR
+
+### Kode AR
 Karyawan::find()
     ->where([
         'and',
@@ -40,6 +43,8 @@ Karyawan::find()
 ### OUTPUT:
 SELECT * FROM `karyawan` WHERE (`gender`='cewek') AND ((`status`='jomblo') OR ((`status`='janda') AND (`anak`=0))) AND (umur < 25)
 
-### TANGGAPANKU:
-Kode `'umur < 25',` sebaiknya diganti dengan `['<', 'umur', '25']`
+### TANGGAPAN:
+- Hasilnya sesuai.
+- Kode `'umur < 25',` sebaiknya diganti dengan `['<', 'umur', '25']` dengan alasan lebih aman jika nilai umurnya dinamis.
+
 
