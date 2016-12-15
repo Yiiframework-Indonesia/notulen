@@ -18,7 +18,7 @@ Pertama, query yang diinginkan oleh soal ini sebagai berikut.
 ```php
 SELECT * FROM `karyawan` WHERE 
     `gender`='cewek'
-    AND (`status_pernikahan`='jomblo' OR (`status_pernikahan`='jomblo' AND `jumlah_anak`=0)) 
+    AND (`status_pernikahan`='jomblo' OR (`status_pernikahan`='janda' AND `jumlah_anak`=0)) 
     AND (`umur` < 25)
 ```
     
