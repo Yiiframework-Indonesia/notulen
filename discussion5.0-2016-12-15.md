@@ -21,6 +21,17 @@ SELECT * FROM `karyawan` WHERE
     AND (`status_pernikahan`='jomblo' OR (`status_pernikahan`='janda' AND `jumlah_anak`=0)) 
     AND (`umur` < 25)
 ```
+
+## Catatan:
+Untuk menampilkan query dari kode ActiveRecord maka kita bisa gunakan cara berikut
+```php
+$karyawan = Karyawan::find();            
+echo $karyawan->createCommand()->getRawSQL();
+```
+maka outputnya 
+```
+SELECT * FROM `karyawan`
+``
     
 ## Jawaban Fredy
 
@@ -241,6 +252,20 @@ Entahlah
 ## Kesimpulan 
 
 Dari semua jawaban diatas, yang sesuai adalah jawabannya Fredy, Huhu, dan Peter. Namun yang paling saya rekomendasikan adalah punya om Fredy
-dengan alasan Yii2 AR style serta lebih aman
+dengan alasan Yii2 AR style serta lebih aman.
 
-Dibahas oleh Hafid Mukhlasin 15 Desember 2016 14:26 WIB
+Namun terlepas dari sesuai atau tidaknya, saya suka dengan jawaban dari febrianto yang berbeda dari yang lain yaitu menggunakan method filterWhere bukan where. Method ini berfungsi mengeliminasi atribute yang nilainya kosong atau null sehingga dikeluarkan dari where. Contoh.
+
+```
+$umur = ''; // NULL
+$karyawan = Karyawan::find()
+    ->filterWhere(["umur"=>$umur]);   
+// Hasilnya: SELECT * FROM karyawan
+
+$karyawan = Karyawan::find()
+    ->filterWhere(["umur"=>$umur]);   
+// Hasilnya: SELECT * FROM karyawan WHERE umur IS NULL
+```
+filterWhere cocok untuk kasus pencarian.
+
+Dibahas oleh Hafid Mukhlasin 15 Desember 2016 16:15 WIB
